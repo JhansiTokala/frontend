@@ -10,10 +10,10 @@ const Navbar = () => {
         <Link to="/" style={styles.logoContainer}>
           <img src="/logg.png" alt="Logo" style={styles.logo} />
         </Link>
-
+        
         {/* Navbar Links on the Right */}
         <div style={styles.navLinks}>
-          <Link to="/" style={styles.navLink}>Home</Link>
+          <Link to="/home" style={styles.navLink}>Home</Link>
           <Link to="/register" style={styles.navLink}>Register</Link>
           <Link to="/login" style={styles.navLink}>Login</Link>
           <Link to="/recipes" style={styles.navLink}>Recipes</Link>
