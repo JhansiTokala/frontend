@@ -16,7 +16,9 @@ const Navbar = () => {
           <Link to="/home" style={styles.navLink}>Home</Link>
           <Link to="/register" style={styles.navLink}>Register</Link>
           <Link to="/login" style={styles.navLink}>Login</Link>
-          <Link to="/recipes" style={styles.navLink}>Recipes</Link>
+          <Link to="/createrecipes" style={styles.navLink}>CreateRecipe</Link>
+          <Link to="/recipeslist" style={styles.navLink}>Recipelist</Link>
+          
           <Link to="/about" style={styles.navLink}>About Us</Link>
         </div>
       </div>
