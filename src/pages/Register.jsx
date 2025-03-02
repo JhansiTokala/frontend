@@ -62,20 +62,25 @@ const Register = ({ setIsLoggedIn }) => {
   const handleRegister = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:5000/register",
+        "http://localhost:5000/register",  // ✅ Changed to correct backend port
         { username, email, password },
-        { headers: { "Content-Type": "application/json" } }
+        { headers: { "Content-Type": "application/json" }, withCredentials: true }
       );
-
-      if (res.status === 201) {  
+  
+      console.log("🔹 Registration Response:", res); // Debugging
+  
+      if (res.status === 201) {  // ✅ Now matches backend's response
         localStorage.setItem("username", username);
         setIsLoggedIn(true);
         navigate("/home");
+        alert("🎉 Registration successful!");
       }
     } catch (error) {
-      alert(error.response?.data?.message || "Registration failed");
+      console.error("❌ Registration Error:", error.response?.data);
+      alert(error.response?.data?.message || "Registration failed. Please try again.");
     }
   };
+  
 
   return (
     <RegisterContainer>

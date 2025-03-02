@@ -7,6 +7,9 @@ import Register from "./pages/Register";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import AboutUs from "./pages/AboutUs";
 import Recipes from "./pages/Recipes";
+import axios from "axios";
+
+axios.defaults.withCredentials = true; // Ensures cookies & sessions are sent properly
 
 function App() {
   return (
