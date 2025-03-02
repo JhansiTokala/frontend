@@ -8,9 +8,9 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import AboutUs from "./pages/AboutUs";
 import Recipes from "./pages/Recipes";
 import axios from "axios";
-
-axios.defaults.withCredentials = true; // Ensures cookies & sessions are sent properly
-
+axios.defaults.withCredentials = true;
+import Createrecipes from "./pages/Createrecipes"; // Ensures cookies & sessions are sent properly
+import RecipesList from "./pages/RecipesList";
 function App() {
   return (
     <Router>
@@ -21,7 +21,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/about" element={<AboutUs />} />
-        <Route path="/recipes" element={<Recipes />} />
+        <Route path="/createrecipes" element={<Createrecipes />} />
+        <Route path="/recipes" element={<RecipesList />} />
       </Routes>
     </Router>
   );
