@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import axios from "../axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const RegisterContainer = styled.div`
   display: flex;
@@ -9,19 +11,18 @@ const RegisterContainer = styled.div`
   align-items: center;
   height: 120vh;
   background: url("/register.jpg") no-repeat center center fixed;
-  background-size: cover; /* Full coverage */
- padding-left: 30px; 
+  background-size: cover;
+  padding-left: 30px;
 `;
 
 const FormWrapper = styled.div`
-  background: rgba(0, 0, 0, 0.7); /* Dark semi-transparent overlay */
+  background: rgba(0, 0, 0, 0.7);
   padding: 2.5rem;
   border-radius: 12px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   width: 400px;
   text-align: center;
-  color: white; /* White text for contrast */
-    
+  color: white;
 `;
 
 const Input = styled.input`
@@ -61,26 +62,41 @@ const Register = ({ setIsLoggedIn }) => {
 
   const handleRegister = async () => {
     try {
-      const res = await axios.post(
-        "http://localhost:5000/register",  // ✅ Changed to correct backend port
-        { username, email, password },
-        { headers: { "Content-Type": "application/json" }, withCredentials: true }
-      );
-  
-      console.log("🔹 Registration Response:", res); // Debugging
-  
-      if (res.status === 201) {  // ✅ Now matches backend's response
-        localStorage.setItem("username", username);
-        setIsLoggedIn(true);
-        navigate("/home");
-        alert("🎉 Registration successful!");
+      const res = await axios.post("/register", {
+        username,
+        email,
+        password
+      });
+
+      if (res.status === 201) {
+        toast.success("🎉 Registration Successful! Redirecting to Login...", {
+          position: "top-center",
+          autoClose: 3000
+        });
+
+        // Redirect to login after 3 seconds
+        setTimeout(() => {
+     
+          navigate("/login");
+        }, 3000);
       }
     } catch (error) {
       console.error("❌ Registration Error:", error.response?.data);
-      alert(error.response?.data?.message || "Registration failed. Please try again.");
+
+      // Handle Error with Toast
+      if (error.response?.data?.message.includes("Email already exists")) {
+        toast.error("❌ Email already exists! Try another one.", {
+          position: "top-center",
+          autoClose: 3000
+        });
+      } else {
+        toast.error("❌ Registration Failed. Please try again.", {
+          position: "top-center",
+          autoClose: 3000
+        });
+      }
     }
   };
-  
 
   return (
     <RegisterContainer>
@@ -109,6 +125,7 @@ const Register = ({ setIsLoggedIn }) => {
           Already have an account? <Link to="/login">Login</Link>
         </p>
       </FormWrapper>
+      <ToastContainer />
     </RegisterContainer>
   );
 };

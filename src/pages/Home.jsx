@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import axios from "../axios";
 
 const Home = () => {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    axios.get("/profile")
+      .then(res => setUser(res.data))
+      .catch(err => console.log(err));
+  }, []);
+
   return (
     <div>
       {/* Full Background Image with Welcome Text on Right */}
@@ -23,7 +32,7 @@ const Home = () => {
           textShadow: "3px 3px 15px rgba(40, 167, 69, 0.8)",
         }}
       >
-        Welcome to Recipe World
+        {user ? <h2>Welcome, {user.username}</h2> : <h2>Loading...</h2>}
       </div>
 
       {/* Cards Section */}
@@ -41,7 +50,9 @@ const Home = () => {
                 />
               </div>
               <div className="card-body text-center p-3">
-                <h5 className="card-title fw-bold text-success m-0">Veg Recipes</h5>
+                <h5 className="card-title fw-bold text-success m-0">
+                  Veg Recipes
+                </h5>
                 <p className="card-text mt-2">
                   Discover delicious vegetarian recipes with fresh ingredients.
                 </p>
@@ -61,7 +72,9 @@ const Home = () => {
                 />
               </div>
               <div className="card-body text-center p-3">
-                <h5 className="card-title fw-bold text-dark m-0">Veg Soups Recipes</h5>
+                <h5 className="card-title fw-bold text-dark m-0">
+                  Veg Soups Recipes
+                </h5>
                 <p className="card-text mt-2">
                   Enjoy a variety of healthy and delicious vegetarian soups.
                 </p>
@@ -81,9 +94,12 @@ const Home = () => {
                 />
               </div>
               <div className="card-body text-center p-3">
-                <h5 className="card-title fw-bold text-danger m-0">Non-Veg Recipes</h5>
+                <h5 className="card-title fw-bold text-danger m-0">
+                  Non-Veg Recipes
+                </h5>
                 <p className="card-text mt-2">
-                  Enjoy a variety of delicious non-vegetarian dishes, from chicken to seafood.
+                  Enjoy a variety of delicious non-vegetarian dishes, from
+                  chicken to seafood.
                 </p>
               </div>
             </div>
@@ -101,8 +117,12 @@ const Home = () => {
                 />
               </div>
               <div className="card-body text-center p-3">
-                <h5 className="card-title fw-bold text-warning m-0">Junk Food</h5>
-                <p className="card-text mt-2">Indulge in mouthwatering fast food and snacks.</p>
+                <h5 className="card-title fw-bold text-warning m-0">
+                  Junk Food
+                </h5>
+                <p className="card-text mt-2">
+                  Indulge in mouthwatering fast food and snacks.
+                </p>
               </div>
             </div>
           </div>
